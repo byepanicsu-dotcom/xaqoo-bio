@@ -1,6 +1,7 @@
-э// script.js - чистый код без мемов
+// script.js - чистый код
 document.addEventListener('DOMContentLoaded', function() {
-    // Функция обновления времени
+    
+    // 1. Часы
     function updateTime() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('ru-RU', {
@@ -15,18 +16,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Микровзаимодействия для ссылок
+    // 2. Анимация появления ссылок (каскад)
+    const links = document.querySelectorAll('.link-card');
+    links.forEach((link, index) => {
+        link.style.opacity = '0';
+        link.style.transform = 'translateY(20px)';
+        link.style.transition = 'all 0.5s ease';
+        
+        setTimeout(() => {
+            link.style.opacity = '1';
+            link.style.transform = 'translateY(0)';
+        }, 100 * (index + 1)); // Задержка для каждого следующего элемента
+    });
+
+    // 3. Микровзаимодействия (нажатие)
     const dynamicLinks = document.querySelectorAll('.link-card.dynamic');
-    
     dynamicLinks.forEach(link => {
         link.addEventListener('mousedown', function() {
-            this.style.transform = 'translateY(0) scale(0.98)';
+            this.style.transform = 'scale(0.98)';
         });
         
         link.addEventListener('mouseup', function() {
-            this.style.transform = 'translateY(-2px) scale(1)';
+            this.style.transform = 'scale(1) translateY(-4px)';
         });
         
+        // Сброс стилей при уходе курсора (возврат к CSS hover)
         link.addEventListener('mouseleave', function() {
             this.style.transform = '';
         });

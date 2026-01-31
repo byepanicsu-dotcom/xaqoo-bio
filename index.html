@@ -3,90 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xaqoo — digital</title>
+    <title>xaqoo — digital profile</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
 </head>
-<body class="monet-theme">
-    <!-- Минималистичный фон -->
-    <div class="monet-background"></div>
+<body>
+    <div class="aurora-bg"></div>
+    <div class="noise-overlay"></div>
     
     <div class="container">
-        <!-- Основной контейнер -->
         <main class="main-card">
-            <!-- Профиль -->
+            
             <div class="profile-section">
                 <div class="avatar-container">
-                    <div class="avatar-monet">
-                        <img src="avatar.jpg" alt="xaqoo" class="avatar-image">
-                        <div class="avatar-status"></div>
-                    </div>
-                    <div class="avatar-glow"></div>
+                    <img src="avatar.jpg" alt="xaqoo" class="avatar-image">
+                    <div class="avatar-status" title="Online"></div>
                 </div>
                 
                 <div class="profile-info">
                     <h1 class="profile-name">xaqoo</h1>
                     <div class="profile-handle">@sleepnightkiller</div>
-                    <div class="profile-line"></div>
                 </div>
             </div>
 
-            <!-- Ссылки -->
             <div class="links-section">
-                <!-- Профиль -->
                 <div class="link-card static">
-                    <div class="link-icon-container primary">
-                        <i class="fas fa-user"></i>
+                    <div class="link-icon-container">
+                        <i class="fas fa-id-badge"></i>
                     </div>
                     <div class="link-info">
-                        <div class="link-title">Profile</div>
-                        <div class="link-desc">Primary identity</div>
+                        <div class="link-title">Identity</div>
+                        <div class="link-desc">Verified Account</div>
                     </div>
-                    <div class="link-badge">
-                        <i class="fas fa-check"></i>
+                    <div class="link-action">
+                        <i class="fas fa-check-circle" style="color: #00d2ff;"></i>
                     </div>
                 </div>
 
-                <!-- Telegram -->
-                <a href="https://t.me/sleepnightkiller" target="_blank" class="link-card dynamic">
-                    <div class="link-icon-container secondary">
-                        <i class="fab fa-telegram"></i>
+                <a href="https://t.me/sleepnightkiller" target="_blank" class="link-card dynamic telegram">
+                    <div class="link-icon-container">
+                        <i class="fab fa-telegram-plane"></i>
                     </div>
                     <div class="link-info">
                         <div class="link-title">Telegram</div>
-                        <div class="link-desc">@sleepnightkiller</div>
+                        <div class="link-desc">Direct contact</div>
                     </div>
                     <div class="link-action">
-                        <span class="link-domain">t.me</span>
-                        <i class="fas fa-external-link-alt"></i>
+                        <i class="fas fa-arrow-right"></i>
                     </div>
                 </a>
 
-                <!-- PlayerOK -->
-                <a href="https://playerok.com/profile/Xaqoo/products" target="_blank" class="link-card dynamic">
-                    <div class="link-icon-container tertiary">
-                        <i class="fas fa-shopping-bag"></i>
+                <a href="https://playerok.com/profile/Xaqoo/products" target="_blank" class="link-card dynamic playerok">
+                    <div class="link-icon-container">
+                        <i class="fas fa-store"></i>
                     </div>
                     <div class="link-info">
                         <div class="link-title">PlayerOK</div>
-                        <div class="link-desc">Products & items</div>
+                        <div class="link-desc">Магазин товаров</div>
                     </div>
                     <div class="link-action">
-                        <span class="link-domain">playerok.com</span>
                         <i class="fas fa-external-link-alt"></i>
                     </div>
                 </a>
             </div>
 
-            <!-- Статус -->
             <div class="status-section">
                 <div class="status-item">
-                    <div class="status-dot active"></div>
-                    <span class="status-text">online</span>
+                    <div class="status-dot"></div>
+                    <span class="status-text">SYSTEM ONLINE</span>
                 </div>
-                <div class="status-divider"></div>
                 <div class="status-item">
                     <span class="status-text" id="currentTime">--:--:--</span>
                 </div>

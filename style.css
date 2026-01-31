@@ -1,297 +1,251 @@
-/* style.css - чистый Monet стиль без мемов */
+/* style.css - Deep Aurora Glass */
 
 :root {
-    /* Цветовая палитра Monet */
-    --monet-primary: 250 100% 66%;
-    --monet-secondary: 180 100% 40%;
-    --monet-tertiary: 320 100% 60%;
+    /* Основные цвета */
+    --accent-primary: #7000ff;
+    --accent-secondary: #00d2ff;
+    --accent-glow: #ff00c8;
     
-    /* Тёмная тема (основная) */
-    --surface: 240 10% 10%;
-    --surface-container: 240 10% 14%;
-    --surface-container-high: 240 10% 18%;
+    /* Фоны */
+    --bg-dark: #050505;
+    --card-bg: rgba(20, 20, 25, 0.6);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --item-bg: rgba(255, 255, 255, 0.03);
+    --item-bg-hover: rgba(255, 255, 255, 0.08);
     
-    --on-surface: 240 10% 95%;
-    --on-surface-variant: 240 10% 75%;
+    /* Текст */
+    --text-main: #ffffff;
+    --text-muted: #a1a1aa;
     
-    --outline: 240 10% 35%;
-    
-    /* Тени */
-    --elevation-1: 0 2px 8px rgba(0, 0, 0, 0.2);
-    --elevation-2: 0 4px 16px rgba(0, 0, 0, 0.3);
-    
-    /* Скругления */
-    --radius-sm: 12px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
-    --radius-full: 999px;
+    /* Эффекты */
+    --blur-strength: 24px;
+    --radius-main: 24px;
+    --radius-item: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Базовые стили */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body.monet-theme {
-    font-family: 'Roboto', 'Inter', sans-serif;
-    background: hsl(var(--surface));
-    color: hsl(var(--on-surface));
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    overflow-x: hidden;
+    position: relative;
 }
 
-.monet-background {
+/* --- Живой фон --- */
+.aurora-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    background: 
+        radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 210, 255, 0.15), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(255, 0, 200, 0.1), transparent 40%);
+    filter: blur(60px);
+    animation: aurora-move 10s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-move {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+/* Текстура шума для "аналогового" ощущения */
+.noise-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at 20% 30%, hsl(var(--monet-primary) / 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, hsl(var(--monet-secondary) / 0.05) 0%, transparent 50%);
     z-index: -1;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 .container {
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
+    animation: fade-up 0.8s ease-out;
 }
 
-/* Основная карточка */
+/* --- Основная карточка --- */
 .main-card {
-    background: hsl(var(--surface-container));
-    border-radius: var(--radius-lg);
-    padding: 32px 24px;
-    border: 1px solid hsl(var(--outline) / 0.1);
-    box-shadow: var(--elevation-2);
-    backdrop-filter: blur(10px);
+    background: var(--card-bg);
+    border-radius: var(--radius-main);
+    padding: 40px 24px;
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(var(--blur-strength));
+    -webkit-backdrop-filter: blur(var(--blur-strength));
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Профиль */
+/* Блик сверху карточки */
+.main-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+}
+
+/* --- Профиль --- */
 .profile-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
     text-align: center;
 }
 
 .avatar-container {
     position: relative;
-    margin-bottom: 16px;
-}
-
-.avatar-monet {
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-full);
-    overflow: hidden;
-    position: relative;
-    border: 2px solid hsl(var(--monet-primary));
+    margin-bottom: 20px;
 }
 
 .avatar-image {
-    width: 100%;
-    height: 100%;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
     object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
 }
 
 .avatar-status {
     position: absolute;
     bottom: 4px;
     right: 4px;
-    width: 16px;
-    height: 16px;
-    background: linear-gradient(135deg, 
-        hsl(var(--monet-primary)), 
-        hsl(var(--monet-secondary)));
+    width: 20px;
+    height: 20px;
+    background: #00ff88;
     border-radius: 50%;
-    border: 2px solid hsl(var(--surface-container));
-    animation: pulse 2s infinite;
-}
-
-.avatar-glow {
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-    background: hsl(var(--monet-primary) / 0.15);
-    border-radius: 50%;
-    filter: blur(16px);
-    z-index: -1;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(0.95); }
-}
-
-.profile-info {
-    width: 100%;
+    border: 3px solid #1a1a1a;
+    box-shadow: 0 0 10px #00ff88;
 }
 
 .profile-name {
-    font-size: 1.75rem;
-    font-weight: 500;
-    margin-bottom: 4px;
-    background: linear-gradient(135deg, 
-        hsl(var(--monet-primary)), 
-        hsl(var(--monet-secondary)));
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #fff 0%, #ccc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
+    letter-spacing: -0.02em;
 }
 
 .profile-handle {
-    font-size: 0.875rem;
-    color: hsl(var(--on-surface-variant));
-    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: var(--accent-secondary);
+    font-weight: 500;
+    background: rgba(0, 210, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 210, 255, 0.2);
 }
 
-.profile-line {
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        hsl(var(--monet-primary) / 0.3), 
-        transparent);
-    margin: 0 auto;
-    width: 80px;
-}
-
-/* Ссылки */
+/* --- Ссылки --- */
 .links-section {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 16px;
+    margin-bottom: 32px;
 }
 
 .link-card {
     display: flex;
     align-items: center;
-    padding: 16px;
-    border-radius: var(--radius-md);
-    background: hsl(var(--surface-container-high));
-    border: 1px solid hsl(var(--outline) / 0.1);
+    padding: 18px;
+    border-radius: var(--radius-item);
+    background: var(--item-bg);
+    border: 1px solid var(--card-border);
     text-decoration: none;
-    color: inherit;
-    transition: all 0.2s ease;
+    color: var(--text-main);
+    transition: var(--transition);
     position: relative;
     overflow: hidden;
 }
 
-.link-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, 
-        transparent, 
-        hsl(var(--monet-primary) / 0.05), 
-        transparent);
-    transition: left 0.5s ease;
-}
-
-.link-card:hover::before {
-    left: 100%;
-}
-
+/* Эффект свечения при наведении */
 .link-card:hover {
-    transform: translateY(-2px);
-    border-color: hsl(var(--monet-primary) / 0.3);
-    box-shadow: var(--elevation-1);
+    background: var(--item-bg-hover);
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.link-card.dynamic:active {
-    transform: translateY(0);
-}
+/* Подсветка конкретных брендов */
+.link-card.telegram:hover .link-icon-container { color: #2AABEE; text-shadow: 0 0 15px rgba(42, 171, 238, 0.5); }
+.link-card.playerok:hover .link-icon-container { color: #ff0055; text-shadow: 0 0 15px rgba(255, 0, 85, 0.5); }
+.link-card.static:hover { transform: none; box-shadow: none; cursor: default; }
 
 .link-icon-container {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-sm);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 16px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    transition: var(--transition);
 }
 
-.link-icon-container.primary {
-    background: hsl(var(--monet-primary) / 0.1);
-    color: hsl(var(--monet-primary));
-}
-
-.link-icon-container.secondary {
-    background: hsl(var(--monet-secondary) / 0.1);
-    color: hsl(var(--monet-secondary));
-}
-
-.link-icon-container.tertiary {
-    background: hsl(var(--monet-tertiary) / 0.1);
-    color: hsl(var(--monet-tertiary));
-}
-
-.link-info {
-    flex: 1;
-}
+.link-info { flex: 1; }
 
 .link-title {
-    font-weight: 500;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 1.05rem;
     margin-bottom: 2px;
-    color: hsl(var(--on-surface));
 }
 
 .link-desc {
-    font-size: 0.8125rem;
-    color: hsl(var(--on-surface-variant));
-}
-
-.link-badge {
-    color: hsl(var(--monet-primary));
-    font-size: 0.875rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
 }
 
 .link-action {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: hsl(var(--on-surface-variant));
+    color: var(--text-muted);
+    opacity: 0.5;
+    transition: var(--transition);
 }
 
-.link-domain {
-    font-size: 0.75rem;
-    background: hsl(var(--surface));
-    padding: 4px 8px;
-    border-radius: var(--radius-sm);
+.link-card:hover .link-action {
+    opacity: 1;
+    color: var(--text-main);
+    transform: translateX(4px);
 }
 
-.link-card.static {
-    cursor: default;
-}
-
-.link-card.static:hover {
-    transform: none;
-    border-color: hsl(var(--outline) / 0.1);
-    box-shadow: none;
-}
-
-/* Статус */
+/* --- Статус бар --- */
 .status-section {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-top: 16px;
-    border-top: 1px solid hsl(var(--outline) / 0.1);
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
 }
 
 .status-item {
@@ -301,83 +255,33 @@ body.monet-theme {
 }
 
 .status-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: hsl(var(--monet-primary));
-    animation: blink 1.5s infinite;
+    background: #00ff88;
+    box-shadow: 0 0 8px #00ff88;
+    animation: blink 2s infinite;
 }
 
-.status-dot.active {
-    background: linear-gradient(135deg, 
-        hsl(var(--monet-primary)), 
-        hsl(var(--monet-secondary)));
+.status-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: 'Roboto Mono', monospace;
 }
 
 @keyframes blink {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    50% { opacity: 0.4; }
 }
 
-.status-text {
-    font-size: 0.875rem;
-    color: hsl(var(--on-surface-variant));
-}
-
-.status-divider {
-    width: 1px;
-    height: 16px;
-    background: hsl(var(--outline) / 0.3);
-    margin: 0 16px;
-}
-
-/* Светлая тема */
-@media (prefers-color-scheme: light) {
-    :root {
-        --surface: 240 10% 98%;
-        --surface-container: 240 10% 100%;
-        --surface-container-high: 240 10% 96%;
-        
-        --on-surface: 240 10% 10%;
-        --on-surface-variant: 240 10% 30%;
-        --outline: 240 10% 80%;
-    }
-    
-    .monet-background {
-        background: 
-            radial-gradient(circle at 20% 30%, hsl(var(--monet-primary) / 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, hsl(var(--monet-secondary) / 0.03) 0%, transparent 50%);
-    }
-    
-    .main-card {
-        border: 1px solid hsl(var(--outline) / 0.3);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    }
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Адаптивность */
 @media (max-width: 480px) {
-    .main-card {
-        padding: 24px 16px;
-    }
-    
-    .profile-name {
-        font-size: 1.5rem;
-    }
-    
-    .avatar-monet {
-        width: 72px;
-        height: 72px;
-    }
-    
-    .link-card {
-        padding: 14px;
-    }
-    
-    .link-icon-container {
-        width: 36px;
-        height: 36px;
-        margin-right: 12px;
-        font-size: 1.1rem;
-    }
+    .main-card { padding: 30px 16px; }
+    .profile-name { font-size: 1.75rem; }
+    .link-card { padding: 16px; }
 }
